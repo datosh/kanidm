@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  kanidm:
+  - apiVersion: v2
+    appVersion: 1.4.5
+    created: "2025-04-04T18:26:29.148969093Z"
+    description: A Helm chart for kanidm identity management platform.
+    digest: 38e406f1cf705d32a94a830d38729c4b6ba1038b7520e1ef37496b4445967a6a
+    name: kanidm
+    type: application
+    urls:
+    - https://github.com/datosh/kanidm/releases/download/kanidm-0.1.0/kanidm-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-04-04T18:26:29.148973972Z"
