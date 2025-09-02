@@ -5,7 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#backend-protocol
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # https://docs.cilium.io/en/stable/network/servicemesh/ingress/#supported-ingress-annotations
+    ingress.cilium.io/tls-passthrough: "enabled"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   tls:
