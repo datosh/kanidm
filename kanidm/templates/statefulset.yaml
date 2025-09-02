@@ -27,14 +27,13 @@ spec:
             containerPort: 8443
           - name: ldaps
             containerPort: 3636
-        # Fails - but why?
-        # because TLS is not correctly configured, we need to use local curl instead
-        # curl https://idm.kammel.dev:8443/status --cacert /tls/tls.crt --resolve idm.kammel.dev:8443:127.0.0.1
-        # livenessProbe:
-        #   httpGet:
-        #     path: /status
-        #     port: https
-        #   initialDelaySeconds: 30
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - curl https://{{ .Values.domain }}:8443/status --cacert /tls/tls.crt --resolve {{ .Values.domain }}:8443:127.0.0.1
+          initialDelaySeconds: 30
         # TODO: migrate some configuration env vars instead?
         env:
         # This is not documented in the kanidm docs, but the ServerConfig code
