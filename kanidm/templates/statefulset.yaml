@@ -34,12 +34,16 @@ spec:
             - -c
             - curl https://{{ .Values.domain }}:8443/status --cacert /tls/tls.crt --resolve {{ .Values.domain }}:8443:127.0.0.1
           initialDelaySeconds: 30
-        # TODO: migrate some configuration env vars instead?
         env:
         # This is not documented in the kanidm docs, but the ServerConfig code
         # https://kanidm.github.io/kanidm/master/rustdoc/kanidmd_core/config/struct.ServerConfig.html#structfield.adminbindpath
         - name: KANIDM_ADMIN_BIND_PATH
           value: "/var/run/kanidmd.sock"
+        {{- if not (or (eq .Values.logLevel "info") (eq .Values.logLevel "debug") (eq .Values.logLevel "trace")) }}
+        {{- fail (printf "logLevel must be one of: info, debug, trace. Provided value: %s" .Values.logLevel) }}
+        {{- end }}
+        - name: KANIDM_LOG_LEVEL
+          value: {{ .Values.logLevel }}
         volumeMounts:
         - name: tls
           mountPath: /tls

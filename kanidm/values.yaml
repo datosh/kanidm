@@ -4,6 +4,9 @@ replicas: 1
 
 storageClassName: "nfs-client"
 
+# May be one of info, debug, trace. This may be changed at runtime.
+logLevel: "info"
+
 ingress:
   className: nginx
   clusterIssuer: letsencrypt-prod
