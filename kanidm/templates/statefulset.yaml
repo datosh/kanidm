@@ -1,10 +1,10 @@
 apiVersion: apps/v1
-# TODO: this should be a stateful set
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: kanidm
   namespace: {{ .Release.Namespace }}
 spec:
+  serviceName: kanidm
   selector:
     matchLabels:
       app: kanidm
@@ -68,12 +68,6 @@ spec:
       - name: tls
         secret:
           secretName: {{ .Values.ingress.tlsSecretName }}
-      - name: db
-        persistentVolumeClaim:
-          claimName: kanidm-db
-      - name: backup
-        persistentVolumeClaim:
-          claimName: kanidm-backup
       - name: config
         configMap:
           name: kanidm-config
@@ -88,3 +82,22 @@ spec:
         seccompProfile:
           type: RuntimeDefault
         runAsNonRoot: true
+  volumeClaimTemplates:
+  - metadata:
+      name: db
+    spec:
+      storageClassName: "nfs-client"
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+  - metadata:
+      name: backup
+    spec:
+      storageClassName: "nfs-client"
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
