@@ -1,5 +1,7 @@
 domain: idm.kammel.dev
 
+replicas: 1
+
 storageClassName: "nfs-client"
 
 ingress:

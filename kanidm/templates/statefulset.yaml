@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app: kanidm
-  # Replication in very early stages in kanidm. The Helm chart only has support
-  # for a single replica.
+  # TODO: add support for multiple replicas
   # https://kanidm.github.io/kanidm/stable/repl/planning.html
-  replicas: 1
+  {{- if not (or (eq (int .Values.replicas) 0) (eq (int .Values.replicas) 1)) }}
+  {{- fail (printf "replicas must be either 0 or 1. Provided value: %d" (int .Values.replicas)) }}
+  {{- end }}
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
