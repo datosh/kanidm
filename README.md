@@ -1,3 +1,3 @@
-# kanidm
+# Helm Charts
 
-Helm chart for the identity management platform kanidm
++ [kanidm](kanidm/README.md)
