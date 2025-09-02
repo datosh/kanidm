@@ -1,5 +1,7 @@
 domain: idm.kammel.dev
 
+storageClassName: "nfs-client"
+
 ingress:
   className: nginx
   clusterIssuer: letsencrypt-prod

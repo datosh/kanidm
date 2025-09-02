@@ -86,7 +86,7 @@ spec:
   - metadata:
       name: db
     spec:
-      storageClassName: "nfs-client"
+      storageClassName: {{ .Values.storageClassName }}
       accessModes:
       - ReadWriteOnce
       resources:
@@ -95,7 +95,7 @@ spec:
   - metadata:
       name: backup
     spec:
-      storageClassName: "nfs-client"
+      storageClassName: {{ .Values.storageClassName }}
       accessModes:
       - ReadWriteOnce
       resources:
