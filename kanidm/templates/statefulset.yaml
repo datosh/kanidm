@@ -84,6 +84,7 @@ spec:
       securityContext:
         runAsGroup: 5000
         runAsUser: 5000
+        fsGroup: 5000
         seccompProfile:
           type: RuntimeDefault
         runAsNonRoot: true
